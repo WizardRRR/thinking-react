@@ -1,12 +1,10 @@
 interface ProductCategoryRowProps {
-  category: string;
+  category: string
 }
-export default function ProductCategoryRow({
-  category,
-}: ProductCategoryRowProps) {
+export default function ProductCategoryRow({ category }: ProductCategoryRowProps) {
   return (
     <tr>
       <th colSpan={2}>{category}</th>
     </tr>
-  );
+  )
 }

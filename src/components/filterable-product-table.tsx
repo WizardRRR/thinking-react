@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { Product } from "../models/product";
-import ProductTable from "./product-table";
-import SearchBar from "./search-bar";
+import { useState } from 'react'
+import { Product } from '../models/product'
+import ProductTable from './product-table'
+import SearchBar from './search-bar'
 
 interface FilterableProductTableProps {
-  products: Product[];
+  products: Product[]
 }
 export default function FilterableProductTable({
-  products,
+  products
 }: FilterableProductTableProps) {
-  const [filterText, setFilterText] = useState("");
-  const [inStockOnly, setInStockOnly] = useState(false);
+  const [filterText, setFilterText] = useState('')
+  const [inStockOnly, setInStockOnly] = useState(false)
 
   return (
     <div>
@@ -26,5 +26,5 @@ export default function FilterableProductTable({
         inStockOnly={inStockOnly}
       />
     </div>
-  );
+  )
 }

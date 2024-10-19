@@ -1,20 +1,20 @@
-import { Product } from "../models/product";
+import { Product } from '../models/product'
 
 interface ProductRowProps {
-  product: Product;
+  product: Product
 }
 
 export default function ProductRow({ product }: ProductRowProps) {
   const name = product.stocked ? (
     product.name
   ) : (
-    <span style={{ color: "red" }}>{product.name}</span>
-  );
+    <span style={{ color: 'red' }}>{product.name}</span>
+  )
 
   return (
     <tr>
       <td>{name}</td>
       <td>{product.price}</td>
     </tr>
-  );
+  )
 }

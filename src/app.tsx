@@ -1,4 +1,4 @@
-import FilterableProductTable from "./components/filterable-product-table";
+import FilterableProductTable from './components/filterable-product-table'
 import {
   Api,
   Calculator,
@@ -6,9 +6,9 @@ import {
   Greet,
   InputForm,
   List,
-  Toggle,
-} from "./components/test";
-import PRODUCTS from "./data.json";
+  Toggle
+} from './components/test'
+import PRODUCTS from './data.json'
 
 export default function App() {
   return (
@@ -22,7 +22,7 @@ export default function App() {
       <p>#3</p>
       <InputForm />
       <p>#4</p>
-      <List items={["element1", "element2", "element3"]} />
+      <List items={['element1', 'element2', 'element3']} />
       <p>#5</p>
       <Toggle />
       <p>#6</p>
@@ -30,5 +30,5 @@ export default function App() {
       <p>#7</p>
       <Calculator />
     </>
-  );
+  )
 }

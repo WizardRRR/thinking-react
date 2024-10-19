@@ -1,32 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 // 1er ejercicio
 export function Greet() {
-  return <p>Hello World</p>;
+  return <p>Hello World</p>
 }
 
 // 2do ejercicio
 export function CountApp() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
   return (
     <div>
       <p>Count: {count}</p>
       <button onClick={() => setCount(count + 1)}>+</button>
       <button onClick={() => setCount(count - 1)}>-</button>
     </div>
-  );
+  )
 }
 
 // 3er ejercicio
 export function InputForm() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('')
   return (
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
+    <input type='text' value={value} onChange={(e) => setValue(e.target.value)} />
+  )
 }
 
 /**
@@ -40,7 +36,7 @@ export function List({ items }: { items: string[] }) {
         <li key={item}>{item}</li>
       ))}
     </ul>
-  );
+  )
 }
 
 /**
@@ -49,15 +45,15 @@ export function List({ items }: { items: string[] }) {
  * que cambia su estado cuando se hace clic.
  */
 export function Toggle() {
-  const [on, setOn] = useState(false);
+  const [on, setOn] = useState(false)
   return (
     <button
-      style={{ backgroundColor: on ? "green" : "red" }}
+      style={{ backgroundColor: on ? 'green' : 'red' }}
       onClick={() => setOn(!on)}
     >
-      {on ? "ON" : "OFF"}
+      {on ? 'ON' : 'OFF'}
     </button>
-  );
+  )
 }
 
 /**
@@ -67,96 +63,92 @@ export function Toggle() {
  */
 export function Api() {
   interface Post {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
+    userId: number
+    id: number
+    title: string
+    body: string
   }
-  const [post, setPost] = useState<null | Post>(null);
-  const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState<null | Post>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts/1"
-      );
-      const post = await response.json();
-      setPost(post);
-      setLoading(false);
-    })();
-  }, []);
+    ;(async () => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts/1')
+      const post = await response.json()
+      setPost(post)
+      setLoading(false)
+    })()
+  }, [])
 
-  return <div>{loading ? <p>Loading...</p> : JSON.stringify(post)}</div>;
+  return <div>{loading ? <p>Loading...</p> : JSON.stringify(post)}</div>
 }
 
 export function Calculator() {
-  const [firstNumber, setFirstNumber] = useState(0);
-  const [secondNumber, setSecondNumber] = useState(0);
-  const [result, setResult] = useState(0);
-  const [selectedOperation, setSelectedOperation] = useState<string | null>(
-    null
-  );
+  const [firstNumber, setFirstNumber] = useState(0)
+  const [secondNumber, setSecondNumber] = useState(0)
+  const [result, setResult] = useState(0)
+  const [selectedOperation, setSelectedOperation] = useState<string | null>(null)
 
-  const operations = ["+", "-", "/", "*"];
+  const operations = ['+', '-', '/', '*']
 
   return (
     <div>
       <input
         value={firstNumber}
         onChange={(e) => {
-          const value = Number(e.target.value);
+          const value = Number(e.target.value)
           // firstNumber => 2
-          setFirstNumber(value); // set a firstNumber value => 22 pero al siguiente render
+          setFirstNumber(value) // set a firstNumber value => 22 pero al siguiente render
           // firstNumber => 2
 
           if (selectedOperation) {
-            setResult(eval(`${value} ${selectedOperation} ${secondNumber}`));
+            setResult(eval(`${value} ${selectedOperation} ${secondNumber}`))
           }
         }}
-        type="number"
+        type='number'
       />
       <input
         value={secondNumber}
         onChange={(e) => {
-          const value = Number(e.target.value);
-          setSecondNumber(value);
+          const value = Number(e.target.value)
+          setSecondNumber(value)
           if (selectedOperation) {
-            setResult(eval(`${firstNumber} ${selectedOperation} ${value}`));
+            setResult(eval(`${firstNumber} ${selectedOperation} ${value}`))
           }
         }}
-        type="number"
+        type='number'
       />
-      <input type="text" disabled value={result} />
+      <input type='text' disabled value={result} />
       {operations.map((operation, index) => (
         <ButtonOperation
           key={index}
           onClick={(operation) => {
-            setSelectedOperation(operation);
-            setResult(eval(`${firstNumber} ${operation} ${secondNumber}`));
+            setSelectedOperation(operation)
+            setResult(eval(`${firstNumber} ${operation} ${secondNumber}`))
           }}
           operation={operation}
           active={selectedOperation === operation}
         />
       ))}
     </div>
-  );
+  )
 }
 
 function ButtonOperation({
   operation,
   active,
-  onClick,
+  onClick
 }: {
-  operation: string;
-  active: boolean;
-  onClick: (operation: string) => void;
+  operation: string
+  active: boolean
+  onClick: (operation: string) => void
 }) {
   return (
     <button
       onClick={() => onClick(operation)}
-      style={{ backgroundColor: active ? "green" : "transparent" }}
+      style={{ backgroundColor: active ? 'green' : 'transparent' }}
     >
       {operation}
     </button>
-  );
+  )
 }
