@@ -4,13 +4,22 @@ import ProductRow from "./product-row";
 
 interface ProductTableProps {
   products: Product[];
+  filterText: string;
+  inStockOnly: boolean;
 }
 
-export default function ProductTable({ products }: ProductTableProps) {
+export default function ProductTable({
+  products,
+  filterText,
+  inStockOnly,
+}: ProductTableProps) {
   const rows: React.ReactNode[] = [];
   let lastCategory: null | string = null;
 
   products.forEach((product) => {
+    if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1)
+      return;
+    if (inStockOnly && !product.stocked) return;
     if (product.category !== lastCategory) {
       rows.push(
         <ProductCategoryRow
