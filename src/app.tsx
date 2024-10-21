@@ -6,6 +6,7 @@ import {
   Greet,
   InputForm,
   List,
+  Timer,
   Toggle
 } from './components/test'
 import PRODUCTS from './data.json'
@@ -29,6 +30,8 @@ export default function App() {
       <Api />
       <p>#7</p>
       <Calculator />
+      <p>#8</p>
+      <Timer />
     </>
   )
 }
