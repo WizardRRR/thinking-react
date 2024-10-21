@@ -214,11 +214,13 @@ export function Timer() {
       alert('Se acabo el tiempo')
       setIsRunning(false)
     }
+  }, [startTimer, isRunning])
 
+  useEffect(() => {
     return () => {
       if (idInterval) clearInterval(idInterval)
     }
-  }, [startTimer, isRunning, idInterval])
+  }, [idInterval])
 
   return (
     <div>
