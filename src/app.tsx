@@ -7,6 +7,7 @@ import {
   Greet,
   InputForm,
   List,
+  RefExample,
   Timer,
   TodoList,
   Toggle
@@ -38,6 +39,9 @@ export default function App() {
       <TodoList />
       <p>#10</p>
       <DynamicBackground />
+      {/* ref */}
+      <p># ref</p>
+      <RefExample />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 
 /**
  * 1er ejercicio
@@ -264,6 +264,8 @@ export function TodoList() {
   const [idEdit, setIdEdit] = useState(0)
   const [editValue, setEditValue] = useState('')
 
+  const refInput = useRef<HTMLInputElement | null>(null)
+
   // CREATE
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault() // para evitar recargar la pagina porque evitamos el comportamiento por defecto
@@ -279,6 +281,7 @@ export function TodoList() {
 
     ;(e.target as HTMLFormElement).reset() // limpiando el formulario
     setTasks([...tasks, task]) // agregando la tarea al estado
+    refInput.current?.focus()
   }
 
   // DELETE
@@ -311,7 +314,7 @@ export function TodoList() {
     <>
       <form onSubmit={onSubmit}>
         <label htmlFor='task'>Registrar tarea pendiente</label>
-        <input id='task' type='text' />
+        <input ref={refInput} id='task' type='text' />
         <button type='submit'>Registrar</button>
       </form>
       <div>
@@ -388,5 +391,20 @@ export function DynamicBackground() {
     >
       {currentColor}
     </div>
+  )
+}
+
+export function RefExample() {
+  const [countDefault, setCountDefault] = useState(0)
+  const count = useRef(0)
+  let i = 0
+  return (
+    <>
+      <div onClick={() => (count.current = count.current + 100)}>
+        {count.current}
+      </div>
+      <div onClick={() => setCountDefault(countDefault + 1)}>{countDefault}</div>
+      <div onClick={() => i++}>{i}</div>
+    </>
   )
 }
