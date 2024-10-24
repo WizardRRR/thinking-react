@@ -5,8 +5,10 @@ import {
   CountApp,
   DynamicBackground,
   Greet,
+  ImageUploader,
   InputForm,
   List,
+  RandomQuote,
   RefExample,
   Timer,
   TodoList,
@@ -42,6 +44,10 @@ export default function App() {
       {/* ref */}
       <p># ref</p>
       <RefExample />
+      <p>#12</p>
+      <RandomQuote />
+      <p>#13</p>
+      <ImageUploader onFile={(file) => console.log(file)} />
     </>
   )
 }

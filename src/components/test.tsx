@@ -408,3 +408,67 @@ export function RefExample() {
     </>
   )
 }
+
+/**
+ * 12 Generador de citas aleatorias:
+ * crea un componente que muestre una cita aleatoria cada vez que se renderiza.
+ */
+const quotes = [
+  'Comience el día con un plan de acción',
+  'Establezca objetivos claros y alcanzables',
+  'Dé prioridad a tus prioridades actuales',
+  'Reúne y analiza tus recursos disponibles',
+  'Cumple tus metas y objetivos',
+  'Mantén un hábito de crecimiento personal',
+  'Recuerda que el éxito viene de la simplicidad',
+  'Celebre tus logros y agradecimientos',
+  'Busca inspiración en otros',
+  'Dé el primer paso en tu camino al éxito',
+  'Cada día es una oportunidad para aprender y mejorar',
+  'No te des por vencido, te des por superar',
+  'La perseverancia es el camino hacia el éxito',
+  'El fracaso es la oportunidad para comenzar de nuevo de cero',
+  'El fracaso es la mejor oportunidad para crecer',
+  'La mejor forma de predecir el futuro es crearlo',
+  'El fracaso es una oportunidad para comenzar de nuevo de cero'
+]
+/** esto retorna una cita aleatoria */
+const getRandomQuote = () => quotes[Math.floor(Math.random() * quotes.length)]
+
+export function RandomQuote() {
+  const [quote, setQuote] = useState(getRandomQuote())
+  return (
+    <div>
+      <h3>Cita Aleatoria</h3>
+      <p>{quote}</p>
+      <button onClick={() => setQuote(getRandomQuote())}>Generar otra cita!</button>
+    </div>
+  )
+}
+
+/**
+ * 13 - Cargador de archivos:
+ * desarrollar un componente de carga de archivos que permita a los usuarios cargar imágenes.
+ */
+
+interface FileUploaderProps {
+  onFile: (file: File) => void
+}
+export function ImageUploader({ onFile }: FileUploaderProps) {
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (!file.type.startsWith('image/')) {
+      alert('Solo se permiten archivos de imagen')
+      e.target.value = ''
+      return
+    }
+    onFile(file)
+  }
+
+  return (
+    <div>
+      <input accept='image/*' onChange={onChangeFile} type='file' />
+    </div>
+  )
+}
