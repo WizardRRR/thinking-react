@@ -8,6 +8,7 @@ import {
   ImageUploader,
   InputForm,
   List,
+  LoginForm,
   RandomQuote,
   RefExample,
   Timer,
@@ -48,6 +49,8 @@ export default function App() {
       <RandomQuote />
       <p>#13</p>
       <ImageUploader onFile={(file) => console.log(file)} />
+      <p>#14 LoginForm</p>
+      <LoginForm />
     </>
   )
 }

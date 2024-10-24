@@ -472,3 +472,123 @@ export function ImageUploader({ onFile }: FileUploaderProps) {
     </div>
   )
 }
+
+/**
+ * 14 Formulario de autenticación:
+ * Implemente un formulario de autenticación básico con inicio de sesión y registro.
+ */
+
+export function Label({ children }: { children: React.ReactNode }) {
+  return <label>{children}</label>
+}
+
+export function Input({
+  value,
+  onChange,
+  type = 'text',
+  placeholder,
+  onBlur
+}: {
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  type?: 'text' | 'number' | 'date' | 'password'
+  placeholder?: string
+  onBlur?: () => void
+}) {
+  return (
+    <input
+      onBlur={onBlur}
+      value={value}
+      onChange={onChange}
+      type={type}
+      placeholder={placeholder}
+    />
+  )
+}
+
+export function ErrorMessage({ children }: { children: React.ReactNode }) {
+  return <p style={{ color: 'red' }}>{children}</p>
+}
+
+type FieldProps = Parameters<typeof Input>[0] & {
+  label: string
+  errorMessage?: string
+}
+export function Field({
+  onChange,
+  value,
+  placeholder,
+  type,
+  label,
+  errorMessage,
+  onBlur
+}: FieldProps) {
+  return (
+    <div>
+      <Label>{label}</Label>
+      <Input
+        value={value}
+        type={type}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+      <ErrorMessage>{errorMessage}</ErrorMessage>
+    </div>
+  )
+}
+
+const user = {
+  username: 'pedro',
+  password: 'pedro123'
+}
+export function LoginForm() {
+  const [username, setUsername] = useState('')
+  const [usernameError, setUsernameError] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [showPassword, setShowPassword] = useState<'password' | 'text'>('password')
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!username) setUsernameError('El usuario no puede estar vació')
+    if (!password) setPasswordError('La contraseña no puede estar vació')
+    if (username.length < 5)
+      setUsernameError('El usuario debe tener al menos 5 caracteres')
+    if (username === user.username && password === user.password) {
+      alert('Bienvenido')
+    } else alert('Credenciales incorrectas')
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      <Field
+        label='Usuario'
+        type='text'
+        placeholder='Usuario'
+        onChange={(e) => setUsername(e.target.value)}
+        value={username}
+        onBlur={() => setUsernameError('')}
+        errorMessage={usernameError}
+      />
+      <Field
+        label='Contraseña'
+        onBlur={() => setPasswordError('')}
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        type={showPassword}
+        placeholder='Contraseña'
+        errorMessage={passwordError}
+      />
+      <button
+        onClick={() =>
+          setShowPassword(showPassword === 'password' ? 'text' : 'password')
+        }
+        type='button'
+      >
+        {showPassword === 'password' ? 'Mostrar' : 'Ocultar'}
+      </button>
+      <button>Enviar</button>
+    </form>
+  )
+}
