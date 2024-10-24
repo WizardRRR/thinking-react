@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 /**
  * 1er ejercicio
@@ -249,5 +249,100 @@ export function Timer() {
         {seconds >= 10 ? seconds : `0${seconds}`}
       </span>
     </div>
+  )
+}
+
+/** 9no ejercicio:Lista de tareas pendientes:
+ * desarrollar una aplicación de lista de tareas pendientes con funciones
+ * para agregar y eliminar tareas. */
+interface Task {
+  id: number
+  name: string
+}
+export function TodoList() {
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [idEdit, setIdEdit] = useState(0)
+  const [editValue, setEditValue] = useState('')
+
+  // CREATE
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault() // para evitar recargar la pagina porque evitamos el comportamiento por defecto
+
+    const taskName = (e.currentTarget.task as HTMLInputElement).value.trim() // limpiar el input después de capturarlo
+    if (!taskName) return alert('No sea imbécil tiene que ingresar una tarea') // early return si no hay valor
+
+    // creando la tarea
+    const task: Task = {
+      id: new Date().getTime(),
+      name: taskName
+    }
+
+    ;(e.target as HTMLFormElement).reset() // limpiando el formulario
+    setTasks([...tasks, task]) // agregando la tarea al estado
+  }
+
+  // DELETE
+  const handleClickDelete = (id: number) => {
+    const newTasks = tasks.filter((task) => task.id !== id)
+    setTasks(newTasks)
+  }
+
+  const handleClickEdit = (task: Task) => {
+    setIdEdit(task.id)
+    setEditValue(task.name)
+  }
+
+  // UPDATE
+  const handleClickUpdate = () => {
+    const newName = editValue.trim()
+    if (!newName) return alert('No sea imbécil tiene que editar una tarea')
+
+    const newTasks = tasks.map((task) => {
+      if (task.id === idEdit) return { ...task, name: newName }
+      return task
+    })
+    setTasks(newTasks)
+
+    setEditValue('')
+    setIdEdit(0)
+  }
+
+  return (
+    <>
+      <form onSubmit={onSubmit}>
+        <label htmlFor='task'>Registrar tarea pendiente</label>
+        <input id='task' type='text' />
+        <button type='submit'>Registrar</button>
+      </form>
+      <div>
+        {/* READ */}
+        {tasks.map((task) => (
+          <div key={task.id}>
+            <strong>
+              <span style={{ fontSize: '.7rem' }}>ID: {task.id}</span>
+            </strong>
+            <br />
+            {idEdit === task.id ? (
+              <input
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+              />
+            ) : (
+              <span>{task.name}</span>
+            )}
+            <br />
+            {idEdit === task.id ? (
+              <>
+                <button onClick={() => setIdEdit(0)}>Cancelar</button>
+                <button onClick={handleClickUpdate}>Guardar</button>
+              </>
+            ) : (
+              <button onClick={() => handleClickEdit(task)}>Editar</button>
+            )}
+            <button onClick={() => handleClickDelete(task.id)}>Eliminar</button>
+          </div>
+        ))}
+      </div>
+    </>
   )
 }

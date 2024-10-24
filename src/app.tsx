@@ -7,6 +7,7 @@ import {
   InputForm,
   List,
   Timer,
+  TodoList,
   Toggle
 } from './components/test'
 import PRODUCTS from './data.json'
@@ -32,6 +33,8 @@ export default function App() {
       <Calculator />
       <p>#8</p>
       <Timer />
+      <p>#9</p>
+      <TodoList />
     </>
   )
 }
