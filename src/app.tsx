@@ -3,6 +3,7 @@ import {
   Api,
   Calculator,
   CountApp,
+  DynamicBackground,
   Greet,
   InputForm,
   List,
@@ -35,6 +36,8 @@ export default function App() {
       <Timer />
       <p>#9</p>
       <TodoList />
+      <p>#10</p>
+      <DynamicBackground />
     </>
   )
 }

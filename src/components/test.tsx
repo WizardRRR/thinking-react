@@ -346,3 +346,47 @@ export function TodoList() {
     </>
   )
 }
+
+/**
+ * ejercicio 10:
+ * Fondo dinámico: crea un componente que cambia su color de fondo cuando se hace clic.
+ */
+
+export function DynamicBackground() {
+  const [currentColor, setCurrentColor] = useState<keyof typeof colors>('red')
+  const colors = {
+    red: '#f00',
+    blue: '#00f',
+    green: '#0f0',
+    yellow: '#ff0',
+    black: '#000',
+    gray: '#ccc',
+    orange: '#ffa500',
+    purple: '#800080',
+    pink: '#ffc0cb',
+    brown: '#a52a2a'
+  }
+
+  const handleClick = () => {
+    const keysColor = Object.keys(colors) as (keyof typeof colors)[]
+    const randomKey = keysColor[Math.floor(Math.random() * keysColor.length)]
+    setCurrentColor(randomKey)
+  }
+
+  return (
+    <div
+      onClick={handleClick}
+      style={{
+        backgroundColor: colors[currentColor],
+        width: '200px',
+        height: '200px',
+        cursor: 'pointer',
+        display: 'grid',
+        placeItems: 'center',
+        color: 'white'
+      }}
+    >
+      {currentColor}
+    </div>
+  )
+}
